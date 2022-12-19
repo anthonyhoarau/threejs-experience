@@ -9,7 +9,12 @@ export default class Experience extends React.Component {
 
   componentDidMount() {
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
 
     this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas.current });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -20,6 +25,17 @@ export default class Experience extends React.Component {
     this.scene.add(this.cube);
 
     this.camera.position.z = 5;
+
+    // Test line
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
+    const points = [];
+    points.push(new THREE.Vector3(-10, 0, 0));
+    points.push(new THREE.Vector3(0, 10, 0));
+    points.push(new THREE.Vector3(10, 0, 0));
+
+    const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+    const line = new THREE.Line(lineGeometry, lineMaterial);
+    this.scene.add(line);
 
     this.animate();
   }
@@ -34,8 +50,6 @@ export default class Experience extends React.Component {
   }
 
   render() {
-    return (
-      <canvas ref={this.canvas} />
-    );
+    return <canvas ref={this.canvas} />;
   }
 }
